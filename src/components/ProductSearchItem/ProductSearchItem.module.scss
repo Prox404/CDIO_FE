@@ -1,18 +1,26 @@
 .wrapper {
     display: flex;
-    align-items: center;
-    padding: 6px 16px;
+    align-items: start;
+    padding: 6px 6px;
     cursor: pointer;
+    border: 1px solid #eaeaea;
+    border-radius: 5px;
+    margin-top: 10px;
+    max-width: 240px;
+    min-width: 240px;
+    margin-left: 10px;
 
     &:hover {
         background: var(--colorBGView);
     }
 }
 
+
+
 .avatar {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
+    width: 70px;
+    height: 70px;
+    border-radius: 5px;
     object-fit: cover;
 }
 
@@ -29,22 +37,27 @@
     font-weight: 600;
     white-space: nowrap;
     color: var(--colorTextPrimary);
+
+    p {
+        width: 100%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
 }
 
-.check {
-    font-size: 1.4rem;
-    margin-left: 6px;
-    color: rgb(32, 213, 236);
-}
+.price {
+    font-weight: 600;
+    text-decoration: none;
+    color: var(--primary);
+    margin-top: 10px;
 
-.username {
-    font-size: 14px;
-    line-height: 10px;
-    color: var(--colorTextTertiary);
-    font-weight: 400;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    p {
+        width: 100%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
 }
 
 @media screen and (max-width: 1071px) {

@@ -51,7 +51,7 @@
 
 .search-title {
     padding: 5px 12px;
-    font-size: 1.4rem;
+    font-size: 17px;
     font-weight: 600;
     color: var(--colorTextTertiary);
 }
@@ -165,4 +165,10 @@
     .wrapper {
         display: none;
     }
+}
+
+.search-results{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
 }

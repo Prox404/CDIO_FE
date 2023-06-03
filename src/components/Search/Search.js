@@ -70,12 +70,14 @@ function Search() {
                     attrs => (
                         <div {...attrs} className={cx('search-results')} tabIndex="-1">
                             <WrapperPopper>
-                                
+
                                 <h4 className={cx('search-title')}>Results</h4>
 
-                                {searchResult && searchResult.map((result, index) => (
-                                    <ProductSearchItem key={index} data={result} />
-                                ))}
+                                <div className={cx('search-results')}>
+                                    {searchResult && searchResult.map((result, index) => (
+                                        <ProductSearchItem key={index} data={result} />
+                                    ))}
+                                </div>
 
                                 <div className={cx('last-item')}>
                                     <p className={cx('last-item-title')}>
