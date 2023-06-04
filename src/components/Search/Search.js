@@ -38,7 +38,7 @@ function Search() {
             const result = await ProductServices.search(debounced);
 
 
-            setSearchResult(result);
+            searchResult && setSearchResult(result);
             if (result) {
                 setVisible(true);
             }
@@ -61,7 +61,7 @@ function Search() {
     return (
         <div className={cx('wrapper')}>
             <HeadlessTippy
-                visible={visible && searchResult.length > 0}
+                visible={visible && searchResult !== undefined}
                 interactive={true}
                 onClickOutside={handleHideResult}
                 offset={[-9999, 12]}
@@ -70,12 +70,14 @@ function Search() {
                     attrs => (
                         <div {...attrs} className={cx('search-results')} tabIndex="-1">
                             <WrapperPopper>
-                                
+
                                 <h4 className={cx('search-title')}>Results</h4>
 
-                                {searchResult && searchResult.map((result, index) => (
-                                    <ProductSearchItem key={index} data={result} />
-                                ))}
+                                <div className={cx('search-results')}>
+                                    {searchResult && searchResult.map((result, index) => (
+                                        <ProductSearchItem key={index} data={result} />
+                                    ))}
+                                </div>
 
                                 <div className={cx('last-item')}>
                                     <p className={cx('last-item-title')}>

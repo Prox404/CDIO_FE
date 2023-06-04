@@ -18,8 +18,11 @@ function ProductSearchItem({ data, notShowInformation = false }) {
 
                     <div className={clsx(cx('info'), notShowInformation === true ? cx('hide') : cx(''))}>
                         <h4 className={cx('name')}>
-                            <span>{data.name}</span>
+                            <p>{data.name}</p>
                         </h4>
+                        <div className={cx('price')}>
+                            <p>{data.price}</p>
+                        </div>
                     </div>
 
                 </Link>

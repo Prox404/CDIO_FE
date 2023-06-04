@@ -1,4 +1,5 @@
 .wrapper{
+    display: block;
 }
 
 .header{
@@ -12,6 +13,7 @@
     align-items: center;
     justify-content: center;
     border-bottom: 2px solid #eaeaea;
+    z-index: 9999;
 }
 
 .container{
