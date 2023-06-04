@@ -11,6 +11,7 @@ import {
 
 import styles from './Home.module.scss';
 import ads_image from '~/assets/ADS.jpg';
+import FilterProduct from '~/components/FilterProduct';
 let cx = classNames.bind(styles);
 
 function Home() {
@@ -77,6 +78,9 @@ function Home() {
                 </div>
             </div>
         </div>
+
+        <h2 className={cx('for-u-title')}>Sản Phẩm Dành Cho Bạn</h2>
+        <FilterProduct />
     </>);
 }
 
