@@ -15,3 +15,15 @@ export const search = async (name) => {
         return undefined;
     }
 }
+
+export const filter = async (params) => {
+    try {
+        const res = await request.get(`/products/search`, {
+            params
+        });
+        return res.data;
+    } catch (error) {
+        console.log(error)
+        return undefined;
+    }
+}
