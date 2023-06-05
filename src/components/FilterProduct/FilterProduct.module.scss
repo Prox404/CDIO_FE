@@ -8,8 +8,9 @@
 }
 
 .filter-container {
-    min-width: 250px;
-    max-width: 250px;
+    --filter-width: 300px;
+    min-width: var(--filter-width);
+    max-width: var(--filter-width);
     border-right: 1px solid #eaeaea;
     padding: 10px 0;
 
@@ -19,19 +20,19 @@
         flex-wrap: wrap;
 
         .category-item {
-            margin-top:12px;
+            margin-top: 12px;
 
             input[type="checkbox"] {
                 display: none;
             }
 
-            label{
+            label {
                 padding: 5px 10px;
                 border-radius: 5px;
                 border: 1px solid #eaeaea;
             }
 
-            input[type="checkbox"]:checked + label {
+            input[type="checkbox"]:checked+label {
                 background: #576b33;
                 color: #fff;
             }
@@ -40,6 +41,55 @@
         .category-item:not(:last-child) {
             margin-right: 5px;
         }
+    }
+
+    .price-filter {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        align-items: center;
+        padding-right: 10px;
+        margin-top: 10px;
+        // max-width: var(--filter-width);
+
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        input {
+            width: 100%;
+            padding: 5px 10px;
+            border-radius: 5px;
+            border: 1px solid #eaeaea;
+            outline: none;
+        }
+    }
+
+    .services-filter{
+
+        .services-filter-check{
+            accent-color: #576b33;
+        }
+    }
+
+    .cancel-filter-button{
+        margin-top: 20px;
+        width: calc(100% - 10px);
+        padding: 5px 10px;
+        border-radius: 5px;
+        border: 1px solid #eaeaea;
+        outline: none;
+        background: #576b33;
+        color: #fff;
+        cursor: pointer;
+        transition: all 0.3s ease-in-out;
+    }
+
+    .cancel-filter-button:hover{
+        background: #48572a;
+        color: #fff;
     }
 }
 

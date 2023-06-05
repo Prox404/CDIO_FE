@@ -61,7 +61,7 @@ function Search() {
     return (
         <div className={cx('wrapper')}>
             <HeadlessTippy
-                visible={visible && searchResult !== undefined}
+                visible={visible && searchResult !== undefined && searchResult.length > 0}
                 interactive={true}
                 onClickOutside={handleHideResult}
                 offset={[-9999, 12]}
