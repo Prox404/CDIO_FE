@@ -5,6 +5,8 @@
     background: #fff;
     padding: 0px 10px;
     border-radius: 10px;
+    min-height: 80vh;
+    margin-bottom: 20px;
 }
 
 .filter-container {
@@ -96,4 +98,12 @@
 .product-container {
     flex: 1;
     padding: 10px;
+
+    // 4 items in 1 row
+    .product-list{
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-gap: 10px;
+    }
+    
 }

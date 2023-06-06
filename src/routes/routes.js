@@ -7,10 +7,12 @@ import { config } from "~/config";
 // Pages
 const Home = lazy(() => import("~/pages/Home"));
 const NotFound = lazy(() => import("~/pages/NotFound"));
+const ProductDetail = lazy(() => import("~/pages/Product"));
 
 // Public routes
 const publicRoutes = [
   { path: config.routes.home, component: Home },
+  { path: config.routes.product, component: ProductDetail },
   { path: "*", component: NotFound, layout: null },
 ];
 
