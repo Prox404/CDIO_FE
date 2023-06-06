@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 
 import styles from './FilterProduct.module.scss';
 import * as ProductServices from '~/services/ProductServices'
+import ProductItem from '~/components/ProductItem';
 
 let cx = classNames.bind(styles);
 
@@ -31,6 +32,17 @@ function FilterProduct() {
     };
 
     const handleCategoryChange = (event) => {
+        if (event.target.value === 'All') {
+            const checkboxes = document.querySelectorAll('input[name="categories"]');
+            checkboxes.forEach((checkbox) => {
+                if (checkbox.value !== "All") {
+                    checkbox.checked = false;
+                }
+            });
+        }else{
+            const allCheckbox = document.querySelector('input[value="All"]');
+            allCheckbox.checked = false;
+        }
         setSelectedCategory(event.target.value);
     };
 
@@ -60,7 +72,7 @@ function FilterProduct() {
                         params.discount = discountOnly;
                     }
 
-                    if (selectedCategory) {
+                    if (selectedCategory && selectedCategory !== 'All') {
                         params.category = selectedCategory;
                     }
 
@@ -79,7 +91,7 @@ function FilterProduct() {
         };
 
         fetchFilteredProducts();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [priceFromDebouce, selectedCategory, priceToDebouce, productName, discountOnly]);
 
     const handleResetFilters = () => {
@@ -143,7 +155,11 @@ function FilterProduct() {
             </div>
 
             <div className={cx('product-container')}>
-
+                <div className={cx('product-list')}>
+                    {products.map((product) => (
+                        <ProductItem key={product._id} product={product} />
+                    ))}
+                </div>
             </div>
         </div>
     </>);

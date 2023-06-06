@@ -27,3 +27,13 @@ export const filter = async (params) => {
         return undefined;
     }
 }
+
+export const getProductById = async (id) => {
+    try {
+        const res = await request.get(`/products/get/${id}`);
+        return res.data;
+    } catch (error) {
+        console.log(error)
+        return undefined;
+    }
+}

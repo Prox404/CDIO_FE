@@ -1,0 +1,105 @@
+.wrapper {
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 10px;
+    margin: 20px 0px;
+
+    .product-overview {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+
+        .product-image-container {
+            max-width: 40%;
+        }
+
+        .product-information-container {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            padding: 0 20px;
+            justify-content: start;
+        }
+
+        .product-image {
+            width: 100%;
+        }
+
+        .product-name {
+            font-size: 24px;
+            font-weight: 400;
+            color: #000;
+            margin-bottom: 10px;
+            padding: 0px;
+            line-height: 1;
+        }
+
+        .product-sold {
+            font-size: 13px;
+            font-weight: 400;
+            color: #000;
+            margin-bottom: 10px;
+            padding: 0px;
+            line-height: 1;
+        }
+
+        .product-price {
+            font-size: 24px;
+            font-weight: 500;
+            margin-bottom: 10px;
+            padding: 0px;
+            line-height: 1;
+            display: flex;
+            flex-direction: row;
+            align-items: end;
+
+            .old-price {
+                text-decoration: line-through;
+                color: #929292;
+                font-size: 14px;
+                margin-bottom: 4px;
+                margin-right: 5px;
+            }
+
+            .current-price {
+                font-size: 26px;
+                font-weight: 500;
+                color: #576b33;
+                margin-top: 10px;
+                padding: 0px;
+                line-height: 1;
+            }
+
+            .old-price::before {
+                content: "đ";
+            }
+
+            .current-price::before {
+                content: "đ";
+            }
+        }
+
+        .product-category {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            margin-top: 10px;
+
+            .category-item {
+                padding: 5px 10px;
+                border-radius: 5px;
+                border: 1px solid #eaeaea;
+                // background: #576b33;
+                // color: #fff;
+                font-size: 12px;
+            }
+
+            .category-item::before {
+                content: "# ";
+            }
+        }
+    }
+
+    .product-description {}
+
+}
