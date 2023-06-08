@@ -1,10 +1,11 @@
-import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import { useEffect, useState, useCallback } from "react";
 import classNames from "classnames/bind";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from 'react-responsive-carousel';
 
 import * as ProductServices from "~/services/ProductServices";
+import * as CartServices from "~/services/CartServices";
 import styles from "./Product.module.scss";
 
 let cx = classNames.bind(styles);
@@ -13,6 +14,8 @@ function Product() {
     const { id } = useParams();
     const [product, setProduct] = useState({});
     const [loading, setLoading] = useState(true);
+    const [quantity, setQuantity] = useState(1);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchProduct = async () => {
@@ -28,6 +31,38 @@ function Product() {
 
         fetchProduct();
     }, [id]);
+
+
+    const handleQuantityChange = useCallback((event) => {
+        setQuantity(event.target.value);
+    }, []);
+
+    const handleIncreaseQuantity = useCallback(() => {
+        setQuantity(quantity + 1);
+    }, [quantity]);
+
+    const handleDecreaseQuantity = useCallback(() => {
+        if (quantity > 1) {
+            setQuantity(quantity - 1);
+        }   
+    }, [quantity]);
+
+    const handleAddToCart = useCallback(async () =>  {
+        const user = localStorage.getItem('user');
+        if (!user) {
+            // alert('Bạn cần đăng nhập để thêm sản phẩm vào giỏ hàng');
+            navigate('/auth');
+        }else{
+            const params = new URLSearchParams();
+            params.append('userId', JSON.parse(user)._id);
+            params.append('productId', product.id);
+            params.append('quantity', quantity);
+
+            const cart = await CartServices.addCart(params);
+            localStorage.setItem('cart', JSON.stringify(cart));
+        }
+    }, [product, quantity]);
+
     return (<>
         <div className={cx('wrapper')}>
             <div className={cx('product-overview')}>
@@ -60,11 +95,11 @@ function Product() {
                     </div>
                     <div className={cx('product-action')}>
                         <div className={cx('product-quantity')}>
-                            <button className={cx('quantity-button')}>-</button>
-                            <input className={cx('quantity-input')} type="number" value="1" />
-                            <button className={cx('quantity-button')}>+</button>
+                            <button onClick={handleDecreaseQuantity} className={cx('quantity-button')}>-</button>
+                            <input onChange={(e) => handleQuantityChange(e)} className={cx('quantity-input')} type="number" value={quantity} />
+                            <button onClick={handleIncreaseQuantity} className={cx('quantity-button')}>+</button>
                         </div>
-                        <button className={cx('add-to-cart')}>Thêm vào giỏ hàng</button>
+                        <button onClick={handleAddToCart} className={cx('add-to-cart')}>Thêm vào giỏ hàng</button>
                         <button className={cx('buy-now')}>Mua ngay</button>
                     </div>
                 </div>
