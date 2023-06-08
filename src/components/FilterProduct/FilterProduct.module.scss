@@ -35,7 +35,7 @@
             }
 
             input[type="checkbox"]:checked+label {
-                background: #576b33;
+                background: #475464;
                 color: #fff;
             }
         }
@@ -72,7 +72,7 @@
     .services-filter{
 
         .services-filter-check{
-            accent-color: #576b33;
+            accent-color: #475464;
         }
     }
 
@@ -83,14 +83,14 @@
         border-radius: 5px;
         border: 1px solid #eaeaea;
         outline: none;
-        background: #576b33;
+        background: #475464;
         color: #fff;
         cursor: pointer;
         transition: all 0.3s ease-in-out;
     }
 
     .cancel-filter-button:hover{
-        background: #48572a;
+        background: #57677a;
         color: #fff;
     }
 }

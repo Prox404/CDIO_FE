@@ -23,6 +23,7 @@ function ProductItem({ product }) {
                 stopOnHover={true}
                 showIndicators={false}
                 showStatus={false}
+                showArrows={false}
                 >
                 {
                     image && image.map((item, index) => {
