@@ -3,10 +3,12 @@ import { useEffect, useState, useCallback } from "react";
 import classNames from "classnames/bind";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from 'react-responsive-carousel';
+import { useDispatch } from 'react-redux';
 
 import * as ProductServices from "~/services/ProductServices";
 import * as CartServices from "~/services/CartServices";
 import styles from "./Product.module.scss";
+import { setCart } from "~/action/action";
 
 let cx = classNames.bind(styles);
 
@@ -16,6 +18,7 @@ function Product() {
     const [loading, setLoading] = useState(true);
     const [quantity, setQuantity] = useState(1);
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     useEffect(() => {
         const fetchProduct = async () => {
@@ -25,7 +28,7 @@ function Product() {
                 console.log(product);
                 setLoading(false);
             } catch (error) {
-                console.log(error);
+                navigate('/404');
             }
         };
 
@@ -44,22 +47,24 @@ function Product() {
     const handleDecreaseQuantity = useCallback(() => {
         if (quantity > 1) {
             setQuantity(quantity - 1);
-        }   
+        }
     }, [quantity]);
 
-    const handleAddToCart = useCallback(async () =>  {
+    const handleAddToCart = useCallback(async () => {
         const user = localStorage.getItem('user');
         if (!user) {
             // alert('Bạn cần đăng nhập để thêm sản phẩm vào giỏ hàng');
             navigate('/auth');
-        }else{
+        } else {
             const params = new URLSearchParams();
             params.append('userId', JSON.parse(user)._id);
-            params.append('productId', product.id);
+            params.append('productId', product._id);
             params.append('quantity', quantity);
 
+            console.log(params);
             const cart = await CartServices.addCart(params);
             localStorage.setItem('cart', JSON.stringify(cart));
+            dispatch(setCart(cart));
         }
     }, [product, quantity]);
 
@@ -76,23 +81,28 @@ function Product() {
                     </Carousel>
                 </div>
                 <div className={cx('product-information-container')}>
-                    <div className={cx('product-name')}>
-                        {product.name}
+                    <div className={cx('product-information-header')}>
+                        <div className={cx('product-category')}>
+                            {product.category && product.category.map((item, index) => {
+                                return <span className={cx('category-item')} key={index}>{item}</span>
+                            })}
+                        </div>
+                        <div className={cx('product-name')}>
+                            {product.name}
+                        </div>
+                        {/* <div className={cx('line')}/> */}
+                        <div className={cx('product-sold')}>
+                            {product.sold + '/' + product.quantity} Đã bán
+                        </div>
+
+                        <div className={cx('product-price')}>
+                            {
+                                product.discount > 0 && <p className={cx('old-price')}>{product.price}</p>
+                            }
+                            <p className={cx('current-price')}>{product.price - product.discount * product.price}</p>
+                        </div>
                     </div>
-                    <div className={cx('product-sold')}>
-                        {product.sold + '/' + product.quantity} Đã bán
-                    </div>
-                    <div className={cx('product-price')}>
-                        {
-                            product.discount > 0 && <p className={cx('old-price')}>{product.price}</p>
-                        }
-                        <p className={cx('current-price')}>{product.price + product.discount * product.price}</p>
-                    </div>
-                    <div className={cx('product-category')}>
-                        {product.category && product.category.map((item, index) => {
-                            return <span className={cx('category-itemw')} key={index}>{item}</span>
-                        })}
-                    </div>
+
                     <div className={cx('product-action')}>
                         <div className={cx('product-quantity')}>
                             <button onClick={handleDecreaseQuantity} className={cx('quantity-button')}>-</button>

@@ -4,9 +4,16 @@ import App from './App.jsx'
 
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Provider } from 'react-redux';
 
 import './index.css'
 import GlobalStyles from '~/components/GlobalStyles'
+import store from '~/store/store';
+
+store.subscribe(() => {
+  const state = store.getState();
+  localStorage.setItem("reduxState", JSON.stringify(state));
+});
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
@@ -25,7 +32,9 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         pauseOnHover
         theme="light"
       />
+      <Provider store={store}>
       <App />
+      </Provider>
     </GlobalStyles>
   </React.StrictMode>,
 )
