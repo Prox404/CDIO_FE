@@ -1,7 +1,8 @@
 import classNames from 'classnames/bind';
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { FaTrash } from "react-icons/fa";
+import { BiTrash } from "react-icons/bi";
+import { useNavigate } from 'react-router-dom';
 
 import styles from './Cart.module.scss';
 
@@ -11,6 +12,7 @@ function Cart() {
     const [totalPrice, setTotalPrice] = useState(0);
     const cart = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : [];
     const [cartItems, setCartItems] = useState(cart?.products || []);
+    const navigate = useNavigate();
 
     const calculateTotalPrice = () => {
         let total = 0;
@@ -32,7 +34,6 @@ function Cart() {
     }, [cartItems]);
 
     const handleItemSelect = (event, itemId) => {
-        console.log('call-checked');
         if (event.target.checked) {
             setSelectedItems([...selectedItems, itemId]);
         } else {
@@ -43,9 +44,11 @@ function Cart() {
     };
 
     const handleRemoveItem = (itemId) => {
-        setSelectedItems(selectedItems.filter((id) => id !== itemId));
-        setCartItems(cartItems.filter((item) => item._id !== itemId));
-        calculateTotalPrice();
+        if (window.confirm('Bạn có chắc chắn muốn xóa sản phẩm này khỏi giỏ hàng?')) {
+            setSelectedItems(selectedItems.filter((id) => id !== itemId));
+            setCartItems(cartItems.filter((item) => item._id !== itemId));
+            calculateTotalPrice();
+        }
     };
 
     const handleIncreaseQuantity = (itemId) => {
@@ -68,11 +71,10 @@ function Cart() {
 
     const handlePlaceOrder = () => {
         const selectedProducts = cartItems.filter((item) => selectedItems.includes(item._id));
-        const orderDetails = selectedProducts.map((product) => ({
-            id: product._id,
-            quantity: product.quantity
-        }));
+        const orderDetails = selectedProducts;
         console.log(orderDetails);
+        localStorage.setItem('orderDetails', JSON.stringify(orderDetails));
+        navigate('/order');
     };
 
     return (<>
@@ -91,24 +93,27 @@ function Cart() {
                         <div className={cx('cart-item-info')}>
                             <div className={cx('cart-description')}>
                                 <h3>{item.product.name}</h3>
-                                <p>
-                                    
-                                    Quantity: 
-                                    <button onClick={() => handleDecreaseQuantity(item._id)}>-</button> 
-                                    {item.quantity}
-                                    <button onClick={() => handleIncreaseQuantity(item._id)}>+</button> 
+                                <p className={cx('product-quantity')}>
+                                    <button className={cx('product-quantity-control-decrease')} onClick={() => handleDecreaseQuantity(item._id)}>-</button> 
+                                    <p className={cx('product-quantity-number')}>{item.quantity}</p>
+                                    <button className={cx('product-quantity-control-increase')} onClick={() => handleIncreaseQuantity(item._id)}>+</button> 
                                 </p>
-                                <p>
-                                    Price: {item.product.price - item.product.price * item.product.discount}
-                                    {item.product.discount > 0 && (
-                                        <span className={cx('badge')}>{item.product.discount * 100}%</span>
-                                    )}
-                                </p>
-                                <p>Total Price: {item.product.price * item.quantity - item.product.price * item.quantity * item.product.discount}</p>
+                                
                             </div>
                             <div className={cx('cart-item-action')}>
+                                
+
+                                <div>
+                                    <p>
+                                        Giá: <span className={cx('price')}>{item.product.price - item.product.price * item.product.discount}</span>
+                                        {item.product.discount > 0 && (
+                                            <span className={cx('badge')}>{item.product.discount * 100}%</span>
+                                        )}
+                                    </p>
+                                    <p>Tổng cộng: <span className={cx('price')}>{item.product.price * item.quantity - item.product.price * item.quantity * item.product.discount}</span></p>
+                                </div>
                                 <button className={cx('remove-btn')} onClick={() => handleRemoveItem(item._id)}>
-                                    <FaTrash />
+                                    <BiTrash /> <span className={cx('remove-btn-text')}>Remove</span>
                                 </button>
                             </div>
                         </div>

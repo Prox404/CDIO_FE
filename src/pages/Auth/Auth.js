@@ -136,12 +136,12 @@ function Auth() {
     }));
 
     const getDistricts = useCallback((provinceCode) => {
-        const selectedProvince = data.find((p) => p.code === provinceCode);
+        const selectedProvince = data.find((p) => p.code == provinceCode);
         return selectedProvince ? selectedProvince.districts : [];
     }, []);
 
     const getWards = useCallback((provinceCode, districtCode) => {
-        const selectedProvince = data.find((p) => p.code === provinceCode);
+        const selectedProvince = data.find((p) => p.code == provinceCode);
         const selectedDistrict = selectedProvince?.districts.find(
             (d) => d.code === districtCode
         );
@@ -174,7 +174,7 @@ function Auth() {
     }, []);
 
     const getFullName = useCallback((code, list) => {
-        const selectedItem = list.find((item) => item.code === code);
+        const selectedItem = list.find((item) => item.code == code);
         return selectedItem ? selectedItem.name : "";
     }, []);
 
