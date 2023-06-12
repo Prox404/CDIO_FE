@@ -47,10 +47,10 @@ function Header() {
         }
 
         <div className={cx('wrapper')}>
-            <div className={cx('logo-container')}>
+            <Link to='/' className={cx('logo-container')}>
                 <img className={`${cx('logo-image')}`} src={logo} alt="logo" />
                 {/* <p className={`${cx('logo-text')}`}>Camping Gear</p> */}
-            </div>
+            </Link>
             <div className={cx('search-container')}>
                 <div className={cx('link-container')}>
                     <div className={cx('link-item')} onClick={handleSubHeader}>Categories <FaAngleDown /></div>

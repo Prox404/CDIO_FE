@@ -74,7 +74,7 @@ function Product() {
                 <div className={cx('product-image-container')}>
                     <Carousel>
                         {
-                            product.image && product.image.map((item, index) => {
+                            product?.image && product.image.map((item, index) => {
                                 return <div key={index}><img src={item} className={cx('product-image')} alt='product' /></div>
                             })
                         }

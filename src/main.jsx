@@ -18,7 +18,11 @@ store.subscribe(() => {
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <GlobalStyles>
-    <ToastContainer
+    
+      <Provider store={store}>
+      <App />
+      </Provider>
+      <ToastContainer
         className="on-top"
         position="top-center"
         autoClose={3000}
@@ -31,10 +35,8 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         draggable
         pauseOnHover
         theme="light"
+        zIndex={9999}
       />
-      <Provider store={store}>
-      <App />
-      </Provider>
     </GlobalStyles>
   </React.StrictMode>,
 )

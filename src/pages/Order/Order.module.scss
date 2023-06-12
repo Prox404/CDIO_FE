@@ -284,4 +284,25 @@
         font-weight: 600;
     }
 
+    .success-page{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding-top: 20px;
+    
+        .success{
+            height: 45px;
+            width: 45px;
+            border-radius: 50%;
+            border: 3px solid var(--colorPrimary);
+            font-size: 30px;
+            color: var(--colorPrimary);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    }
+    
+
 }
