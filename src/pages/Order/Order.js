@@ -1,24 +1,32 @@
 import { useState, useEffect, useCallback } from 'react';
 import classNames from 'classnames/bind';
-import * as OrderServices from '~/services/OrderServices';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { BsCheckLg } from 'react-icons/bs';
 
+import * as OrderServices from '~/services/OrderServices';
 import data from "./data.json";
 import styles from './Order.module.scss';
+import { setCart } from "~/action/action";
 
 let cx = classNames.bind(styles);
 function Order() {
+    const dispatch = useDispatch();
     const orderDetails = localStorage.getItem('orderDetails') ? JSON.parse(localStorage.getItem('orderDetails')) : [];
-    const [step, setStep] = useState(1);
+    const [step, setStep] = useState(3);
     const [address, setAddress] = useState('');
     const [phone, setPhone] = useState('');
     const [note, setNote] = useState('');
     const [totalPrice, setTotalPrice] = useState(0);
+    const user = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : {};
 
     const [selectedProvince, setSelectedProvince] = useState("");
     const [selectedDistrict, setSelectedDistrict] = useState("");
     const [district, setDistrict] = useState([]);
     const [selectedWard, setSelectedWard] = useState("");
     const [ward, setWard] = useState([]);
+    const navigator = useNavigate();
 
 
     const provinces = data.map((province) => ({
@@ -118,10 +126,37 @@ function Order() {
     }, [selectedProvince, selectedDistrict, getWards]);
 
     // Function to handle form submission in Step 2
-    const handleStep2Submit = (e) => {
+    const handleStep2Submit = async (e) => {
         e.preventDefault();
 
+        const formattedOrderDetails = orderDetails.map(orderDetail => ({
+            productId: orderDetail.product._id,
+            quantity: orderDetail.quantity
+        }));
 
+        const params = new URLSearchParams();
+        params.append('address', formattedValues);
+        params.append('phone', phone);
+        params.append('note', note);
+        params.append('userId', user._id);
+        console.log(formattedOrderDetails);
+        formattedOrderDetails.forEach((orderDetail, index) => {
+            console.log(orderDetail.productId);
+            params.append(`products[${index}][productId]`, orderDetail.productId);
+            params.append(`products[${index}][quantity]`, orderDetail.quantity);
+        });
+
+        let data = await OrderServices.addOrder(params);
+
+        if (data) {
+            dispatch(setCart(data.cart));
+            localStorage.setItem('cart', JSON.stringify(data.cart));
+            localStorage.setItem('orderDetails', JSON.stringify([]));
+
+            setStep(3);
+        } else {
+            toast.error("Đặt hàng thất bại");
+        }
 
         // Reset form fields and step
         // setAddress('');
@@ -129,7 +164,7 @@ function Order() {
         // setNote('');
         // setStep(1);
 
-        setStep(3);
+
 
         // Show success message or redirect to a success page
     };
@@ -149,6 +184,10 @@ function Order() {
         } else {
             setStep(step + 1);
         }
+    };
+
+    const handleBackToHome = () => {
+        navigator('/');
     };
 
     return (
@@ -263,17 +302,15 @@ function Order() {
                                         <p className={cx('info')}>
                                             <p>Giá:</p>
                                             <span className={cx('price')}>
-                                                {order.product.price}
+                                                {order.product.price * order.product.discount}
                                             </span>
                                         </p>
                                         <p className={cx('info')}>
                                             <p>Tổng cộng:</p>
                                             <span className={cx('price')}>
-                                                {order.quantity * order.product.price}
+                                                {order.quantity * order.product.price * order.product.discount}
                                             </span>
                                         </p>
-
-
                                     </div>
 
                                 </div>
@@ -281,22 +318,27 @@ function Order() {
                         ))}
                     </div>
                     <div>
+
                         <h3>Personal Information:</h3>
-                        <p>Address: {formattedValues}</p>
-                        <p>Phone: {phone}</p>
-                        <p>Note: {note}</p>
+                        <p>Họ và tên: {user?.fullname}</p>
+                        <p>Địa chỉ: {formattedValues}</p>
+                        <p>Số điện thoại: {phone}</p>
+                        <p>Ghi chú: {note}</p>
                     </div>
-                    <p>Total Price: {calculateTotalPrice()}</p>
+                    <p>Tổng cộng: {calculateTotalPrice()}</p>
 
                     <button className={cx('btn-order')} onClick={handleStep2Submit}>Confirm Order</button>
                 </div>
             )}
 
             {step === 3 && (
-                <div>
-                    <h2>Step 3: Order Success</h2>
+                <div className={cx('success-page')}>
+                    <div className={cx('success')}>
+                        <BsCheckLg />
+                    </div>
+                    <h2 style={{ textAlign: 'center', marginTop: '10px'}}>Order Success</h2>
                     <p>Thank you for your order!</p>
-                    <button className={cx('btn-order')} >Back to Home</button>
+                    <button style={{ marginTop: '20px'}} onClick={handleBackToHome} className={cx('btn-order')} >Back to Home</button>
                 </div>
             )}
         </div>
