@@ -1,0 +1,59 @@
+.wrapper {
+    --min-height: 100vh;
+    $main-background-color: #fff;
+    $leaf-empty-color: #eee;
+    $leaf-fill-color: #7Fbc5b;
+
+    $leaf-width: 77px;
+    $leaf-height: 75px;
+
+    $leaf-size: 1;
+    $leaf-time: 1.5s;
+
+    padding: 20px;
+    min-height: var(--min-height);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+
+    .logo-container {
+        position: relative;
+        overflow: hidden;
+        width: $leaf-width - 2px;
+        height: $leaf-height - 2px;
+        margin: 0 auto;
+        background: $leaf-empty-color;
+        transform: scale($leaf-size);
+
+        .logo-image {
+            position: absolute;
+            top: -1px;
+            left: -1px;
+            z-index: 99;
+            width: $leaf-width;
+            height: $leaf-height;
+            filter: invert(100%);
+            fill: $main-background-color;
+            //fill: red;
+
+        }
+
+        .fill {
+            width: $leaf-width;
+            height: $leaf-height;
+            background: $leaf-fill-color;
+            animation: fillUp $leaf-time ease-in-out infinite;
+        }
+    }
+
+    @keyframes fillUp {
+        0% {
+            transform: translate(0, $leaf-height);
+        }
+
+        100% {
+            transform: translate(0, -$leaf-height);
+        }
+    }
+}

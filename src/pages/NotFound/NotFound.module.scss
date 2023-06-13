@@ -1,0 +1,41 @@
+.wrapper{
+    --min-height: 100vh;
+    padding: 20px;
+    min-height: var(--min-height);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .not-found{
+        font-size: 120px;
+        font-family: 'Cormorant Upright';
+        font-weight: 700;
+    }
+
+    .not-found-title{
+        font-family: 'Cormorant Upright';
+        font-size: 25px;
+        font-weight: 600;
+    }
+
+    .go-home-btn{
+        margin-top: 20px;
+        padding: 5px 10px;
+        border-radius: 5px;
+        background-color: transparent;
+        color: var(--colorTextPrimary);
+        font-family: 'Cormorant Upright';
+        font-size: 14px;
+        font-weight: 500;
+        border: 1px solid var(--colorTextPrimary);
+        cursor: pointer;
+        transition: all 0.3s ease-in-out;
+        font-family: 'Inter';
+
+        &:hover{
+            background-color: var(--colorBGSecondary2);
+        }
+    }
+}

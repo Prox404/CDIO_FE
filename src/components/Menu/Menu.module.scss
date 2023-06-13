@@ -1,0 +1,40 @@
+.menu-container {
+    position: relative;
+
+    .menu {
+        position: absolute;
+        background-color: #fff;
+        border-radius: 5px;
+        // padding: 10px 0px;
+        width: 200px;
+        top: 45px;
+        right: 0;
+        overflow: hidden;
+    }
+
+    .user-button{
+        border: none;
+        outline: none;
+        background: none;
+    }
+
+    .menu-item {
+        padding: 10px 10px;
+        display: flex;
+        align-items: center;
+        justify-content: start;
+        width: 100%;
+        margin: 0 !important;
+
+        span {
+            display: flex;
+            align-items: center;
+            font-weight: 500;
+            font-size: 15px;
+        }
+    }
+
+    .menu-item:hover {
+        background: #f5f5f5;
+    }
+}

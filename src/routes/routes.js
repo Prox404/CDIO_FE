@@ -11,6 +11,7 @@ const ProductDetail = lazy(() => import("~/pages/Product"));
 const Auth = lazy(() => import("~/pages/Auth"));
 const Cart = lazy(() => import("~/pages/Cart"));
 const Order = lazy(() => import("~/pages/Order"));
+const MyOrder = lazy(() => import("~/pages/MyOrder"));
 
 // Public routes
 const publicRoutes = [
@@ -20,6 +21,7 @@ const publicRoutes = [
   { path: config.routes.auth, component: Auth, layout: null },
   { path: config.routes.cart, component: Cart },
   { path: config.routes.order, component: Order },
+  { path: config.routes.myOrder, component: MyOrder },
 ];
 
 const privateRoutes = [
