@@ -4,5 +4,6 @@ export const routes = {
     auth: "/auth",
     cart: "/cart/:id",
     order: "/order",
+    myOrder: "/my-order",
   };
   

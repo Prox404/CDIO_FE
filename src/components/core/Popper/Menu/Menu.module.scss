@@ -1,3 +1,5 @@
+
+
 // Menu wrapper
 .menu-list {
     width: 224px;
@@ -7,9 +9,6 @@
     }
 }
 
-.menu-popper {
-    padding-bottom: 8px;
-}
 
 // Menu items
 .menu-item {
@@ -19,6 +18,7 @@
     padding: 10px 8px 10px 16px;
     font-weight: 600;
     line-height: 22px;
+    font-family: 'Nunito';
     color: var(--colorTextPrimary);
     background-color: transparent;
     border: none;
@@ -76,7 +76,7 @@
     }
 
     input:checked + .slider {
-        background-color: rgb(11, 224, 155);
+        background-color: var(--primary);
     }
 }
 
