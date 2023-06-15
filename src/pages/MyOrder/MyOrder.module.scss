@@ -1,0 +1,118 @@
+.wrapper{
+    margin-top: 20px;
+}
+
+.order-item{
+    background: #fff;
+    border-radius: 10px;
+    padding: 10px 20px;
+    margin-top: 20px;
+    // max-width: 1000px;
+
+
+    .order-header{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding-bottom: 5px;
+        border-bottom: 1px solid #eaeaea;
+
+        .order-id{
+            font-size: 20px;
+            font-weight: 600;
+            color: #475464;
+        }
+
+        .order-status{
+            padding: 3px 6px;
+            border-radius: 5px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #fff;
+            background: #475464;
+        }
+    }
+
+    .order-info{
+        font-size: 16px;
+        margin-top: 5px;
+        font-weight: 600;
+        
+
+        span{
+            font-weight: 500;
+            color: var(--colorTextSecondary)
+        }
+
+        .order-total::after{
+            content: "đ";
+            font-weight: 500;
+            color: var(--colorTextSecondary);
+        }
+    }
+
+    .expand-btn{
+        width: 100%;
+        text-align: center;
+        border: none;
+        outline: none;
+        background: none;
+        cursor: pointer;
+        border-top: 1px solid #eaeaea;
+        padding-top: 10px;
+    }
+}
+
+.product-item{
+    padding: 10px 0px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    .product-item-left{
+        display: flex;
+        flex-direction: row;
+        // align-items: st;
+
+        .product-name{
+            margin-left: 10px;
+            font-size: 18px;
+            font-weight: 600;
+
+        }
+    }
+
+    .product-info{
+
+        .product-price{
+            font-size: 18px;
+            font-weight: 600;
+        }
+        .product-price::after{
+            content: "đ";
+        }
+
+        .product-quantity{
+            font-size: 14px;
+            font-weight: 500;
+            text-align: right;
+            color: var(--colorTextSecondary);
+        }
+    }
+
+    img{
+        height: 150px;
+        width: 150px;
+        object-fit: cover;
+        border-radius: 5px;
+    }
+}
+
+.product-item:not(:last-child){
+    border-bottom: 1px solid #eaeaea;
+}
+
+.not-found{
+    padding: 10px 0;
+}
