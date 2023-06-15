@@ -10,3 +10,14 @@ export const addOrder = async (params) => {
         return undefined;
     }
 }
+
+export const getOrder = async (id) => {
+    try {
+        const res = await request.get(`/order/${id}`);
+        console.log(res.data);
+        return res.data;
+    } catch (error) {
+        console.log(error)
+        return undefined;
+    }
+}
