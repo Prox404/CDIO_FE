@@ -90,9 +90,9 @@ function MyOrder() {
                 return "Đang xác nhận";
             case 1:
                 return "Đang chuẩn bị hàng";
-            case 3:
+            case 2:
                 return "Đang giao";
-            case 4:
+            case 3:
                 return "Giao hàng thành công";
             default:
                 return "";
@@ -111,7 +111,7 @@ function MyOrder() {
             <h2>Đang đặt:</h2>
             {renderOrderList(0)}
             <h2>Đã đặt:</h2>
-            {renderOrderList(4)}
+            {renderOrderList(3)}
         </div>
     );
 }
