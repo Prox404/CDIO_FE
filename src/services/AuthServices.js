@@ -6,7 +6,7 @@ export const login = async ({params}) => {
         return res.data;
     } catch (error) {
         console.log(error)
-        return undefined;
+        return null;
     }
 }
 
@@ -16,6 +16,16 @@ export const register = async ({params}) => {
         return res.data;
     } catch (error) {
         console.log(error)
-        return undefined;
+        return null;
+    }
+}
+
+export const logout = async (params) => {
+    try {
+        const res = await request.post(`/auth/logout`, params);
+        return res.data;
+    } catch (error) {
+        console.log(error)
+        return null;
     }
 }

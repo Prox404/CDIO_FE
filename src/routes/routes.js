@@ -3,6 +3,7 @@ import { config } from "~/config";
 
 // Layouts
 // import { DefaultLayout } from "~/layouts";
+import Management from "~/layouts/Management/Management";
 
 // Pages
 const Home = lazy(() => import("~/pages/Home"));
@@ -12,6 +13,12 @@ const Auth = lazy(() => import("~/pages/Auth"));
 const Cart = lazy(() => import("~/pages/Cart"));
 const Order = lazy(() => import("~/pages/Order"));
 const MyOrder = lazy(() => import("~/pages/MyOrder"));
+const Dashboard = lazy(() => import("~/pages/Dashboard"));
+const userManager = lazy(() => import("~/pages/UserManager"));
+const orderManager = lazy(() => import("~/pages/OrderManager"));
+const orderDetail = lazy(() => import("~/pages/OrderDetail"));
+const productManager = lazy(() => import("~/pages/ProductManager"));
+const editProduct = lazy(() => import("~/pages/EditProduct"))
 
 // Public routes
 const publicRoutes = [
@@ -22,6 +29,12 @@ const publicRoutes = [
   { path: config.routes.cart, component: Cart },
   { path: config.routes.order, component: Order },
   { path: config.routes.myOrder, component: MyOrder },
+  { path: config.routes.dashboard, component: Dashboard, layout: Management },
+  { path: config.routes.userManager, component: userManager, layout: Management },
+  { path: config.routes.orderManager, component: orderManager, layout: Management },
+  { path: config.routes.orderDetail, component: orderDetail, layout: Management },
+  { path: config.routes.productManager, component: productManager, layout: Management },
+  { path: config.routes.editProduct, component: editProduct, layout: Management },
 ];
 
 const privateRoutes = [

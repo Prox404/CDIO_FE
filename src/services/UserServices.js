@@ -1,9 +1,8 @@
 import * as request from '~/utils/httpRequest';
 
-export const addCart = async (product) => {
+export const getAllUser = async () => {
     try {
-        console.log(product);
-        const res = await request.post(`/cart/add-cart`, product);
+        const res = await request.get(`/users`);
         return res.data;
     } catch (error) {
         console.log(error)
@@ -11,10 +10,10 @@ export const addCart = async (product) => {
     }
 }
 
-export const getCart = async (id) => {
+export const deleteUser = async (id) => {
     try {
-        const res = await request.get(`/cart/${id}`);
-        return res;
+        const res = await request.get(`/users/delete/${id}`);
+        return res.data;
     } catch (error) {
         console.log(error)
         return null;

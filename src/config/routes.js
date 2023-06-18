@@ -5,5 +5,11 @@ export const routes = {
     cart: "/cart/:id",
     order: "/order",
     myOrder: "/my-order",
+    dashboard: "/dashboard",
+    userManager: "/user-manager",
+    productManager: "/product-manager",
+    orderManager: "/order-manager",
+    orderDetail: "/order-detail/:id",
+    editProduct: "/products/edit/:id",
   };
   

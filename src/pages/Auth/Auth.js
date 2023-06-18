@@ -115,7 +115,11 @@ function Auth() {
             handleSetUser(res);
             toast.success('Đăng nhập thành công');
             setTimeout(() => {
-                window.open('/', '_self');
+                if (res.role == 'admin') {
+                    window.open('/dashboard', '_self');
+                }else{
+                    window.open('/', '_self');
+                }
             }, 4000);
         } else {
             toast.error('Đăng nhập thất bại');
@@ -143,7 +147,7 @@ function Auth() {
     const getWards = useCallback((provinceCode, districtCode) => {
         const selectedProvince = data.find((p) => p.code == provinceCode);
         const selectedDistrict = selectedProvince?.districts.find(
-            (d) => d.code === districtCode
+            (d) => d.code == districtCode
         );
         return selectedDistrict ? selectedDistrict.wards : [];
     }, []);
@@ -216,7 +220,7 @@ function Auth() {
         params.append('email', registerEmail);
         params.append('username', registerUserName);
         params.append('password', registerPassword);
-        const fullname = registerFirstName + ' ' + registerLastName;
+        const fullname = registerLastName + ' '  + registerFirstName ;
         params.append('fullname', fullname);
         params.append('phone', registerPhone);
         params.append('address', formattedValues);
