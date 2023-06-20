@@ -11,5 +11,9 @@ export const routes = {
     orderManager: "/order-manager",
     orderDetail: "/order-detail/:id",
     editProduct: "/products/edit/:id",
+    addProduct: "/products/add-product",
+    editUser: "/users/edit/:id",
+    addEmployee: "/users/add-employee",
+
   };
   

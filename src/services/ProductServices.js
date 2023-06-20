@@ -70,3 +70,14 @@ export const updateProduct = async (id, params) => {
         return null;
     }
 }
+
+export const createProduct = async (params) => {
+    try {
+        const res = await request.post(`/products/add-product`, params);
+        // console.log(res.data);
+        return res.data;
+    } catch (error) {
+        console.log(error)
+        return null;
+    }
+}

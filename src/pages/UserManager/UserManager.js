@@ -3,6 +3,7 @@ import * as UserServices from '~/services/UserServices';
 import styles from './UserManager.module.scss';
 import classNames from 'classnames/bind';
 import { toast } from 'react-toastify';
+import { Link } from 'react-router-dom';
 
 let cx = classNames.bind(styles);
 
@@ -10,10 +11,13 @@ function UserManager() {
     const [users, setUsers] = useState([]);
     const [filteredUsers, setFilteredUsers] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
+    const [selectedRole, setSelectedRole] = useState('');
+
+    let user = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : {};
 
     useEffect(() => {
         const fetchUsers = async () => {
-            const result = await UserServices.getAllUser();
+            const result = await UserServices.getAllUserByRole(user?._id);
             if (result) {
                 setUsers(result);
                 setFilteredUsers(result);
@@ -23,7 +27,11 @@ function UserManager() {
     }, []);
 
     useEffect(() => {
-        const filtered = users.filter((user) => {
+        const filteredByRole = users.filter((user) => {
+            return user.role.toLowerCase().includes(selectedRole.toLowerCase());
+        });
+
+        const filteredBySearchTerm = filteredByRole.filter((user) => {
             const { fullname, username, email, phone } = user;
             return (
                 fullname?.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -32,8 +40,9 @@ function UserManager() {
                 phone?.toString().includes(searchTerm)
             );
         });
-        setFilteredUsers(filtered);
-    }, [users, searchTerm]);
+
+        setFilteredUsers(filteredBySearchTerm);
+    }, [users, searchTerm, selectedRole]);
 
     const handleSearch = (event) => {
         setSearchTerm(event.target.value);
@@ -59,13 +68,29 @@ function UserManager() {
     return (
         <div className={cx('wrapper')}>
             <h2>Quản lý người dùng</h2>
-            <div className={cx('search-control')}>
-                <input
-                    type="text"
-                    placeholder="Tìm kiếm theo tên, email, số điện thoại"
-                    value={searchTerm}
-                    onChange={(e) => handleSearch(e)}
-                />
+            <div className={cx('header')}>
+                <div className={cx('search-control')}>
+                    <input
+                        type="text"
+                        placeholder="Tìm kiếm theo tên, email, số điện thoại"
+                        value={searchTerm}
+                        onChange={(e) => handleSearch(e)}
+                    />
+
+                    {
+                        user?.role == 'admin' && <select value={selectedRole} onChange={(e) => setSelectedRole(e.target.value)}>
+                            <option value="">Tất cả vai trò</option>
+                            <option value="user">Người dùng</option>
+                            <option value="employee">Nhân viên</option>
+                        </select>
+                    }
+
+                </div>
+
+                {
+                    user?.role == 'admin' && <Link to='/users/add-employee' className={cx('add-btn')}>Thêm nhân viên</Link>
+                }
+
             </div>
             <table className={cx('table')}>
                 <thead className={cx('table-header')}>
@@ -87,9 +112,12 @@ function UserManager() {
                             <td>{user.phone}</td>
                             <td>{user.role}</td>
                             <td>
-                                <button className={cx('edit-btn')} onClick={() => handleEditUser(user._id)}>
-                                    Edit
-                                </button>
+                                {user.role && user.role == 'employee' && (
+                                    <button className={cx('edit-btn')} onClick={() => handleEditUser(user._id)}>
+                                        Edit
+                                    </button>
+
+                                )}
                                 <button className={cx('delete-btn')} onClick={() => handleDeleteUser(user._id)}>
                                     Delete
                                 </button>
