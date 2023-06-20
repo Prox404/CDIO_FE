@@ -1,15 +1,14 @@
-import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useState } from 'react';
 import { toast } from 'react-toastify';
 import {MdAdd} from 'react-icons/md';
 
-import styles from './EditProduct.module.scss';
+import styles from './AddProduct.module.scss';
 import classNames from 'classnames/bind';
 import * as ProductServices from '~/services/ProductServices';
 import error_image from '~/assets/image_erorr.jpg';
 
 const cx = classNames.bind(styles);
-function EditProduct() {
+function AddProduct() {
     const [name, setName] = useState('');
     const [price, setPrice] = useState(0);
     const [quantity, setQuantity] = useState(0);
@@ -17,27 +16,9 @@ function EditProduct() {
     const [images, setImages] = useState([]);
     const [category, setCategory] = useState([]);
     const [discount, setDiscount] = useState(0);
-    const [product, setProduct] = useState({});
-    const { id } = useParams();
-
-    useEffect(() => {
-        const fetchApi = async () => {
-            const result = await ProductServices.getProductById(id);
-            setProduct(result);
-            setName(result.name);
-            setPrice(result.price);
-            setQuantity(result.quantity);
-            setDescription(result.description);
-            setImages(result.image);
-            setCategory(result.category);
-            setDiscount(result.discount);
-        };
-        fetchApi();
-    }, [id]);
 
     const handleSave = async () => {
         const updatedProduct = {
-            ...product,
             name,
             price,
             quantity,
@@ -66,11 +47,10 @@ function EditProduct() {
 
         // console.log(images);
 
-        let newProduct = await ProductServices.updateProduct(id, params);
+        let newProduct = await ProductServices.createProduct( params);
         console.log(newProduct);
         if (newProduct) {
             toast.success('Cập nhật sản phẩm thành công');
-            setProduct(newProduct);
         } else {
             toast.error('Cập nhật sản phẩm thất bại');
         }
@@ -195,4 +175,4 @@ function EditProduct() {
     );
 }
 
-export default EditProduct;
+export default AddProduct;

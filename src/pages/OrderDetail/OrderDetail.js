@@ -77,15 +77,15 @@ function OrderDetail() {
             <div>
                 <h3>Sản phẩm đã đặt hàng:</h3>
                 {order.products?.map((product) => (
-                    <div className={cx('product-item')} key={product._id}>
+                    <div className={cx('product-item')} key={product?._id}>
                         <div className={cx('order-left')}>
-                            <img src={product.product.image[0]} alt={product.product.name} />
-                            <p className={cx('product-name')}>{product.product.name}</p>
+                            <img src={product.product?.image[0]} alt={product.product?.name} />
+                            <p className={cx('product-name')}>{product.product?.name}</p>
                         </div>
 
                         <div className={cx('order-info')}>
-                            <p className={cx('product-price')}>{product.currentPrice}</p>
-                            <p className={cx('product-quantity')}>x{product.quantity}</p>
+                            <p className={cx('product-price')}>{product?.currentPrice}</p>
+                            <p className={cx('product-quantity')}>x{product?.quantity}</p>
                         </div>
                     </div>
                 ))}

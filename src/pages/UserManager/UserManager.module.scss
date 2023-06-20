@@ -4,6 +4,26 @@
     padding: 20px 10px;
 }
 
+.header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    .add-btn{
+        background: #5593fa;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        padding: 5px 10px;
+        border-radius: 5px;
+        font-size: 15px;
+        font-weight: 500;
+        color: #fff;
+        display: flex;
+        align-items: center;
+    }
+}
+
 .search-control{
     display: flex;
     align-items: center;

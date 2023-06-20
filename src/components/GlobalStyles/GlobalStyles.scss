@@ -197,3 +197,34 @@ a {
 .carousel.carousel-slider .control-arrow:hover{
     background: transparent !important;
 }
+
+.btn-back{
+    background: transparent;
+    border: 2px solid #eee;
+    padding: 0.5rem 1rem;
+    outline: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+    border-radius: 5px;
+
+    svg{
+        margin-right: 10px;
+    }
+
+    &:hover{
+        background: #eee;
+    }
+}
+
+button{
+    outline: none;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+button:active{
+    transform: scale(1.05);
+}
