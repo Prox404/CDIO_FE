@@ -113,9 +113,9 @@ function UserManager() {
                             <td>{user.role}</td>
                             <td>
                                 {user.role && user.role == 'employee' && (
-                                    <button className={cx('edit-btn')} onClick={() => handleEditUser(user._id)}>
+                                    <Link className={cx('edit-btn')} to={`/users/edit/${user?._id}`}>
                                         Edit
-                                    </button>
+                                    </Link>
 
                                 )}
                                 <button className={cx('delete-btn')} onClick={() => handleDeleteUser(user._id)}>

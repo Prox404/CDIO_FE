@@ -21,6 +21,7 @@ const productManager = lazy(() => import("~/pages/ProductManager"));
 const editProduct = lazy(() => import("~/pages/EditProduct"))
 const addProduct = lazy(() => import("~/pages/AddProduct"))
 const addEmployee = lazy(() => import("~/pages/AddEmployee"))
+const editUser = lazy(() => import("~/pages/EditUser"))
 
 // Public routes
 const publicRoutes = [
@@ -39,6 +40,7 @@ const publicRoutes = [
   { path: config.routes.editProduct, component: editProduct, layout: Management },
   { path: config.routes.addProduct, component: addProduct, layout: Management },
   { path: config.routes.addEmployee, component: addEmployee, layout: Management },
+  { path: config.routes.editUser, component: editUser, layout: Management },
 ];
 
 const privateRoutes = [
