@@ -38,3 +38,23 @@ export const addEmployee = async (params) => {
         return null;
     }
 }
+
+export const updateUser = async (id, params) => {
+    try {
+        const res = await request.put(`/users/update/${id}`, params);
+        return res.data;
+    } catch (error) {
+        console.log(error)
+        return null;
+    }
+}
+
+export const getUser = async (id) => {
+    try {
+        const res = await request.get(`/users/get/${id}`);
+        return res.data;
+    } catch (error) {
+        console.log(error)
+        return null;
+    }
+}
