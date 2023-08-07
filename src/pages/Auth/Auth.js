@@ -39,8 +39,8 @@ function Auth() {
 
     const handleSetUser = (user__) => {
         dispatch(setUser(user__));
-      };
-    
+    };
+
 
     useEffect(() => {
         const provinces = data.map((province) => ({
@@ -117,7 +117,7 @@ function Auth() {
             setTimeout(() => {
                 if (res.role == 'admin') {
                     window.open('/dashboard', '_self');
-                }else{
+                } else {
                     window.open('/', '_self');
                 }
             }, 4000);
@@ -211,6 +211,40 @@ function Auth() {
             return;
         }
 
+        let usernameError = '';
+        let firstNameError = '';
+        let lastNameError = '';
+        let phoneError = '';
+        let passwordError = '';
+
+        if (registerUserName.length < 2) {
+            usernameError = 'Username phải có ít nhất 2 kí tự';
+            toast.error(usernameError);
+            return;
+        }
+        if (registerFirstName.length > 30) {
+            firstNameError = 'Họ không được vượt quá 30 kí tự';
+            toast.error(firstNameError);
+            return;
+        }
+        if (registerLastName.length > 30) {
+            lastNameError = 'Tên không được vượt quá 30 kí tự';
+            toast.error(lastNameError);
+            return;
+
+        }
+        if (registerPhone.length < 5 || registerPhone.length > 12) {
+            phoneError = 'Số điện thoại phải có từ 5 đến 12 kí tự';
+            toast.error(phoneError);
+            return;
+        }
+        if (!/[A-Z]/.test(registerPassword) || !/\d/.test(registerPassword) || !/[^A-Za-z0-9]/.test(registerPassword)) {
+            passwordError = 'Mật khẩu phải chứa ít nhất 1 kí tự in hoa, 1 số và một kí tự đặc biệt';
+            toast.error(passwordError);
+            return;
+        }
+
+
         if (registerPassword.trim() !== registerConfirmPassword.trim()) {
             toast.error('Mật khẩu không khớp');
             return;
@@ -220,7 +254,7 @@ function Auth() {
         params.append('email', registerEmail);
         params.append('username', registerUserName);
         params.append('password', registerPassword);
-        const fullname = registerLastName + ' '  + registerFirstName ;
+        const fullname = registerLastName + ' ' + registerFirstName;
         params.append('fullname', fullname);
         params.append('phone', registerPhone);
         params.append('address', formattedValues);

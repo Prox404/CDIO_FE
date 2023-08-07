@@ -3,8 +3,10 @@ import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { BiTrash } from "react-icons/bi";
 import { useNavigate } from 'react-router-dom';
+import { setCart } from "~/action/action";
 
 import styles from './Cart.module.scss';
+import { useDispatch } from 'react-redux';
 
 let cx = classNames.bind(styles);
 function Cart() {
@@ -13,6 +15,7 @@ function Cart() {
     const cart = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : [];
     const [cartItems, setCartItems] = useState(cart?.products || []);
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const calculateTotalPrice = () => {
         let total = 0;
@@ -47,6 +50,8 @@ function Cart() {
         if (window.confirm('Bạn có chắc chắn muốn xóa sản phẩm này khỏi giỏ hàng?')) {
             setSelectedItems(selectedItems.filter((id) => id !== itemId));
             setCartItems(cartItems.filter((item) => item._id !== itemId));
+            localStorage.setItem('cart', JSON.stringify({ products: cartItems.filter((item) => item._id !== itemId) }));
+            dispatch(setCart({ products: cartItems.filter((item) => item._id !== itemId) }));
             calculateTotalPrice();
         }
     };
@@ -81,6 +86,7 @@ function Cart() {
         <div className={cx('wrapper')}>
             <div className={cx('cart-products-container')}>
                 <h2>Shopping Cart</h2>
+                <i>*Lưu ý: Phí vận chuyển sẽ được thông báo trong cuộc gọi xác nhận đơn hàng từ chúng tôi.</i>
                 {cartItems.map((item) => (
                     <div className={cx('cart-item')} key={item._id}>
                         <div className={cx('cart-item-image')}>

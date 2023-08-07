@@ -25,9 +25,9 @@ function AddEmployee() {
     const [ward, setWard] = useState([]);
     const navigate = useNavigate();
 
-    const handleRegisterEmail = useCallback((e) => {
+    const handleRegisterEmail = (e) => {
         setRegisterEmail(e.target.value);
-    }, []);
+    };
 
     const handleRegisterPassword = useCallback((e) => {
         setRegisterPassword(e.target.value);
@@ -116,6 +116,7 @@ function AddEmployee() {
 
 
     const handleRegisterSubmit = useCallback(async () => {
+        console.log(registerEmail )
         if (
             !registerEmail ||
             !registerUserName ||
@@ -131,7 +132,7 @@ function AddEmployee() {
             toast.error('Vui lòng nhập đủ thông tin');
             return;
         }else{
-            if (registerPassword.trim() !== registerConfirmPassword.trim()) {
+            if (registerPassword.trim() != registerConfirmPassword.trim()) {
                 toast.error('Mật khẩu không khớp');
                 return;
             }
