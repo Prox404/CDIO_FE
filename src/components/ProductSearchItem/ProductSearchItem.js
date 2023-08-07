@@ -9,7 +9,7 @@ function ProductSearchItem({ data, notShowInformation = false }) {
     return (
         <>
             {(data && (
-                <Link className={cx('wrapper')} to={`/proudcts/${data._id}`}>
+                <Link className={cx('wrapper')} to={`/products/${data._id}`}>
                     <img
                         className={cx('avatar')}
                         src={data.image[0]}

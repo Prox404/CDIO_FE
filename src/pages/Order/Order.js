@@ -14,7 +14,7 @@ let cx = classNames.bind(styles);
 function Order() {
     const dispatch = useDispatch();
     const orderDetails = localStorage.getItem('orderDetails') ? JSON.parse(localStorage.getItem('orderDetails')) : [];
-    const [step, setStep] = useState(3);
+    const [step, setStep] = useState(1);
     const [address, setAddress] = useState('');
     const [phone, setPhone] = useState('');
     const [note, setNote] = useState('');
